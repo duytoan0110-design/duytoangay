@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DUY TOÀN Profile</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background:#0d0d0d;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    canvas{
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:-1;
+    }
+
+    .card{
+      width:350px;
+      background:rgba(0,0,0,0.8);
+      border:1px solid #00ff99;
+      box-shadow:0 0 20px #00ff99;
+      margin:40px auto;
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      backdrop-filter:blur(10px);
+      position: relative;
+    }
+
+    .avatar{
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      border:3px solid #00ff99;
+      object-fit:cover;
+      margin-bottom:15px;
+      background-color: #000;
+      box-shadow: 0 0 15px #00ff99;
+    }
+
+    h1{
+      color:#00ff99;
+      margin-bottom:10px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00ff99;
+    }
+
+    .bio{
+      color:#ccc;
+      margin-bottom:20px;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    .box{
+      background:rgba(20, 20, 20, 0.9);
+      border:1px solid #00ff99;
+      padding:12px;
+      border-radius:12px;
+      margin-top:12px;
+      text-align:left;
+      font-size: 14px;
+    }
+
+    .box b{
+      color:#00ff99;
+    }
+
+    .service{
+      color:#fff;
+      line-height:1.6;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      padding:12px;
+      margin-top:15px;
+      background:#00ff99;
+      color:black;
+      text-decoration:none;
+      border-radius:10px;
+      font-weight:bold;
+      transition:0.3s;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .btn:hover{
+      background:white;
+      box-shadow: 0 0 15px white;
+      transform: scale(1.02);
+    }
+
+    .footer{
+      margin-top:20px;
+      color:#777;
+      font-size:12px;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="card">
+
+  <img class="avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABFUI7GAAAABlBMVEUAAAD///+l2Z/dAAAH9klEQVR4nO2YvW7jRhCG968Yh8V9Ab8As4v7AmFv4Y8C9iYBn78S7E4Cn74S8PYnAb2XwN6Y9AbCns6vYh3OkhT3p7vYIAn2MAn0K90f58yQM1yYFEmS5L9oEghv6S98v8G52eN+pZfT57z6D1/U81p7Wp8m6m73yD0O9vQ8O0/o+7629532nvaP6j6h9p72j+p+p6X+8A8H++MeR7L/R27X032S+9/Z65M7pYn9v3f+l97uP5P7l9KndKmfZ5/H97vSjPZPaU7vX6v7V9rS/U9pSvunNKH9S/Uo979Un3L/S/0Xuf+pnpX7n+o5XfrX7v53pWl92v8pTerpT+pX3O9XulT3D/6Eun/wK9T9g/8u3X8gD3S/Yv/L88+p7v87D3S/PZ/X++9P36v7j89X1/uf/16m98/PF/Wp7n8pX+n+Z6Vp6f8XvKnuPyt9Ke8v8B7d/9S/qvsP9L/X/Yd8p/sv8TfXp/uL68f5L9WfWp9Of2r9Ov+l+rP0Xz9/n/+m/+X5+/y35v+G+X9h/q/Of+v8X53/6/Lfuvy3Lv99n/+XpD/8v986L7u+P3W7/6j0/9D3/67pP4t+R7f70/Rz/3W9L7m99f8X9f2uN9XfC/vO8/X576pP9yvun58vrl9x//x8SXe6/7V8ofuv5Uu69P9K3en+v9Kkbv9/6Zz6+Z9T9/+S3O/8S07936pPe/+/oU9r/7+hf+z+/9D/+Tf9X+X//Xf6P5eX/X/u9/+X6e/679m93v9f09/Xf8+un6L70/X7u/6Lut3v+q+6/6Xui7rf99+fvv/+9N+f/v9f/+v/+Pz6X7r9X/+/7Pf3m/37z/o399/Xf8+ub9H73fVv89P1v1V/+L8v7u/6O/L/7Pr/Kvr+x/85pvuT80f7PzZ/tv98f6r9tT49H+Zf9H+Qf6S/57/lf5S/pb/kf8n/kv9X5//m/F+T/9fnv/X673/T/0fTf/v8P03/7fN/TfrfOf9/O69P9/vpD8/v7/rD3x/nP8/9f5f6v+O/7n6lP6x+yZf8S77kv7t+3X/Of8n/kv8X5//mv/9O/8fz9/lvP19f/8fn1//2/Ptfvv7fX//p9f/7zv/V9X/9/7/r/35v/5vT3//9PzZ9P0Wf/65Pn/+X/jD9XN/95v77f+73p+//u9Xf99//L/U7uu7v+O9O9+66u/m0/3R+qv/8/Wn+53Z+mv8+p9Of5r96/ofn99/p//699/+5u/6++7++v3/Of4v6/pL+8L++vn/+Z6k//+f7+/rD/z73v8/Xf4//uvv//5/6f8H//P0vXf/59R/f/6X+z+367v7P6T/ff3/9F//t9v6X/f7739zv7n9/urv++8//8vX//uX6P9P9z/W/v/7+1v/r+97X/8X/Pve/P/3/v/6v+P+5X7F/8L/+z/8V/X/u/+7+j8+f7/9p+u5P//z++f0f+7+7/un/Pvd/dv3f3f/Z9V97/v/v1f13939O/fD3/3j/0/TzP/+n99/ff3/9u/vvdv17un7Z7e//3O//z8/v/979d9fn7n92/d/d/zZ96ffv59X9v9H7n99/9//T7f87Xf7f8X8+zf/U3en+P6f0t/59/89u/6e0P/53p3t3/VPp/z73H/of9P+Z7t879f9f/Wf6P02/o+9/3v9U3f+uNK1P/X/tU1/v/6X+5H/Xn/99+r/7U93/z6lfcf85pfvXlGZ1/7vS7vSf3O//v3X6k3Snh/8m7v9/X+6f0z88/7PStD59/vX1O7v9S6X+73Of6/7vTNPX/8763X/8l/7Nf//96fdP6p/S7/+p9Xv9T+mP/9P5v/N/+9SfqP+W/vf96v7P0L89/68v+c96/6T+Xv+z0h9Ov/uP7/f/Z6Y/3Z8+X9X9f3X60/0v8X//3X9Mv6NfnX6f7v+p6f+X1O/0v9Lp3v3/+f32r/D3/0v+36b+e/5/R9L/Gf/fI/v/o9L/S5reP/X/j6X/P/Tf7v/Z/Y/rU97v7t/7n+rvTv85p3un/8r6M/XzX9f/Fv/POf1r98/0v92/t99v/9r6lP9fX79rO7/86+6foS9+vS/Hn/X9L1P/5/N//f3/n15f/O/9n07/+/p/X66v/+/u/0z9Z9H/P+H/+r/+Uf/X/+X/Z9H/M/N/+f9P6f+H7v89//+6/+90f07X/06/v9t/+vx/X/8v//+7/h9X/9/Z/XP9/07f/+9K/Zz+L/nf6P7v6b889T+R/f7++19ef766v+v//XN9e7v+v+/2/0fd33v/v7v/OfW/7/r/z67/399/t/v3T/1Puv+p/yv/v9f//+9P9T/t/7v++v8z6v/p//W97v76v7X/6/6f7vfX7+z2v7r+7Pr/u/Y7vP2fqv8v/P+7+6+u//e6//+v+r9X//876v+vO/+X/p/P/+v6v5X/e/t/+f8v6/8vuv/0+b8+v65/f7//X/qf6X8n9f+T6/vff/9/1/+Z038Z/3f/8V8S//j/+T+K7v879WfK/6n7//X+S/5f6P9T//99/V/3v/V/7f+z+v/p/f+f/u+v7/473f9X6vd0P16f8n797378//H/e9D/zP+/Nf+/1f7/0/+p9SXu//9p+P+D+r84/m/+n6f/K+X/rv//j97/n+X//Xf6/6b//5/+76/v7v9fX1/Uf6n/F+L/iv975f8fA5r5p+qf9P9V83/L/F8z/9fkv8Yf/p8D+P896P9fVf3/N0j7X6pP61PeP0u7v+T/+v9Z6v53pT/S/Z/f90uSJPmv8D/P3/P/Nf83zP8L8391/v+r8391/q/L/+v6vz6/rr99u/+n5P9l7u9/0f/vuf9r0p/+n/v/D/jP6f9E+t399H+f7nfUv39+v6vP067/u/Xf3e6fUf9v/A/7/77z67/0p/9v7f9P6v8P/R/z/yZ9/693u/+k7u+v3/f/H0P/f+v/A5K9q8Z2o8TDAAAAAElFTkSuQmCC" alt="Duy Toàn Avatar">
+
+  <h1>DUY TOÀN</h1>
+
+  <p class="bio">
+    Developer • Designer • Services Online
+  </p>
+
+  <div class="box">
+    <b>📘 Facebook:</b><br>
+    FB Chính: Duy Toàn----<br>
+    FB Phụ : Hoàng Tử Xứ Thanh
+  </div>
+
+  <div class="box">
+    <b>📱 Zalo:</b><br>
+    0787900055
+  </div>
+
+  <div class="box service">
+    <b>⚡ Dịch vụ:</b><br>
+    • Thiết kế web<br>
+    • Chạy Code thuê<br>
+    • Thu mua bán acc<br>
+    • Cấp chứng chỉ vip<br>
+    • Chỉnh sửa ảnh<br>
+    • Làm bio link<br>
+    • Hỗ trợ công nghệ
+  </div>
+
+  <div class="box">
+    <b>🏦 Ngân hàng:</b><br>
+    ZALO PAY<br>
+    STK: 0787900055<br>
+    CTK: TRAN MINH TAM
+  </div>
+
+  <a class="btn" href="https://www.facebook.com/share/1AX2Rre9KV/?mibextid=wwXIfr">
+    LIÊN HỆ NGAY
+  </a>
+
+  <div class="footer">
+    © 2026 DUY TOAN
+  </div>
+
+</div>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.onresize = resize;
+resize();
+
+const letters = "01";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = [];
+
+for(let x = 0; x < columns; x++)
+  drops[x] = 1;
+
+function draw(){
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#00ff99";
+  ctx.font = fontSize + "px monospace";
+
+  for(let i = 0; i < drops.length; i++){
+    const text = letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+    if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+      drops[i] = 0;
+
+    drops[i]++;
+  }
+}
+
+setInterval(draw, 35);
+</script>
+
+</body>
+</html>
